@@ -10,6 +10,7 @@
 #include <QComboBox>
 #include <QDate>
 #include <QString>
+#include <QFont>
 
 #define START_YEAR    2015    // First year of Advent of Code
 #define XMAS_DAY        25

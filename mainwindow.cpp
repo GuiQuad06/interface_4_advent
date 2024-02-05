@@ -26,11 +26,24 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Label declaration
     QLabel *title = new QLabel(QString("This is an interface for Advent of Code"), m_mainWidget);
+    title->setAlignment(Qt::AlignHCenter);
+
+    // Modify QFont for the title QLabel
+    QFont f_title = title->font();
+    f_title.setPixelSize(14);
+    f_title.setPointSize(14);
+    f_title.setBold(true);
+    title->setFont(f_title);
+
     QLabel *input_data_label = new QLabel(QString("Enter the input data:"), m_mainWidget);
     QLabel *result_label = new QLabel(QString("Here the result:"), m_mainWidget);
     QLabel *year_label = new QLabel(QString("Select the year:"), m_mainWidget);
     QLabel *day_label = new QLabel(QString("Select the day:"), m_mainWidget);
     QLabel *result = new QLabel(QString(""), m_mainWidget);
+
+    // Set a Black Border on the result QLabel to distinguish it when empty
+    result->setFrameShape(QFrame::Shape::Box);
+    result->setLineWidth(1);
 
     // Button declaration
     QPushButton *clear_btn = new QPushButton(QString("Clear"), m_mainWidget);
