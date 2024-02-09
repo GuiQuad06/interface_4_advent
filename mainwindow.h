@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <functional>
+
 #include <QMainWindow>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -11,9 +13,12 @@
 #include <QDate>
 #include <QString>
 #include <QFont>
+#include <QMap>
 
 #define START_YEAR    2015    // First year of Advent of Code
 #define XMAS_DAY        25
+
+using PuzzleFunction = std::function<int(QString&, const QString&)>;
 
 class MainWindow : public QMainWindow
 {
@@ -47,6 +52,8 @@ private:
     QLabel* m_result;
 
     QDate m_date;
+
+    QMap<std::pair<int, int>, PuzzleFunction> m_puzzleMap;
 
 };
 #endif // MAINWINDOW_H

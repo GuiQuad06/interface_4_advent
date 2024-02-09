@@ -120,4 +120,15 @@ void MainWindow::init_date_map()
     for (j = 1; j < XMAS_DAY; j++) {
         m_day_list << QString::number(j);
     }
+
+    // Init Map
+    for (i = START_YEAR ; i < m_date.year(); i++) {
+        for (j = 1; j < XMAS_DAY; j++) {
+            // Initialiize the unimplemented callback puzzles
+            m_puzzleMap[{i, j}] = Q_NULLPTR;
+        }
+    }
+
+    //Add the implemented Puzzle callbacks here...
+    m_puzzleMap[{2023,1}] = puzzle_2023_1;
 }
