@@ -94,6 +94,7 @@ MainWindow::~MainWindow() {}
 void MainWindow::clear_fct()
 {
     m_input_data->clear();
+    m_result->clear();
 }
 
 void MainWindow::process_fct()
