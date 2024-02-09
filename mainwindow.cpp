@@ -98,7 +98,17 @@ void MainWindow::clear_fct()
 
 void MainWindow::process_fct()
 {
-    // TODO call function according to the selected puzzle's day
+    QString res, input;
+    int status;
+
+    input = m_input_data->toPlainText();
+
+    status = m_puzzleMap[{m_year->currentText().toInt(), m_day->currentText().toInt()}](res, input);
+
+    if(!status) {
+        // If return OK, display the result on the text field
+        m_result->setText(res);
+    }
 }
 
 void MainWindow::submit_fct()
