@@ -7,15 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_mainWidget = new QWidget(this);
 
-    m_date = QDate::currentDate();
-
-    for (int i = START_YEAR ; i < m_date.year(); i++) {
-        m_year_list << QString::number(i);
-    }
-
-    for (int i = 1; i < XMAS_DAY; i++) {
-        m_day_list << QString::number(i);
-    }
+    init_date_map();
 
     // Box Layout declaration
     m_vLayout = new QVBoxLayout(this);
@@ -39,11 +31,11 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *result_label = new QLabel(QString("Here the result:"), m_mainWidget);
     QLabel *year_label = new QLabel(QString("Select the year:"), m_mainWidget);
     QLabel *day_label = new QLabel(QString("Select the day:"), m_mainWidget);
-    QLabel *result = new QLabel(QString(""), m_mainWidget);
+    m_result = new QLabel(QString(""), m_mainWidget);
 
     // Set a Black Border on the result QLabel to distinguish it when empty
-    result->setFrameShape(QFrame::Shape::Box);
-    result->setLineWidth(1);
+    m_result->setFrameShape(QFrame::Shape::Box);
+    m_result->setLineWidth(1);
 
     // Button declaration
     QPushButton *clear_btn = new QPushButton(QString("Clear"), m_mainWidget);
@@ -54,8 +46,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_input_data = new QTextEdit(QString(""), m_mainWidget);
 
     // Combo Box declaration
-    QComboBox *year_box = new QComboBox(m_mainWidget);
-    QComboBox *day_box = new QComboBox(m_mainWidget);
+    m_year = new QComboBox(m_mainWidget);
+    m_day = new QComboBox(m_mainWidget);
 
     // Button HLayout organization
     m_hLayout_btn->addWidget(clear_btn);
@@ -68,11 +60,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Right VLayout organization
     m_vLayout_right->addWidget(year_label);
-    m_vLayout_right->addWidget(year_box);
+    m_vLayout_right->addWidget(m_year);
     m_vLayout_right->addWidget(day_label);
-    m_vLayout_right->addWidget(day_box);
+    m_vLayout_right->addWidget(m_day);
     m_vLayout_right->addWidget(result_label);
-    m_vLayout_right->addWidget(result);
+    m_vLayout_right->addWidget(m_result);
     m_vLayout_right->addWidget(submit_btn);
 
     // Main HLayout organization
@@ -91,8 +83,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(process_btn, SIGNAL(clicked()), this, SLOT(process_fct()));
     connect(submit_btn, SIGNAL(clicked()), this, SLOT(submit_fct()));
 
-    year_box->addItems(m_year_list);
-    day_box->addItems(m_day_list);
+    m_year->addItems(m_year_list);
+    m_day->addItems(m_day_list);
 
     setCentralWidget(m_mainWidget);
 }
@@ -112,4 +104,20 @@ void MainWindow::process_fct()
 void MainWindow::submit_fct()
 {
     // TODO Implement a way to make a HTTP POST with the result on advent of code web site including Authentication
+}
+
+void MainWindow::init_date_map()
+{
+    int i, j;
+    m_date = QDate::currentDate();
+
+    // Display potential puzzle Year
+    for (i = START_YEAR ; i < m_date.year(); i++) {
+        m_year_list << QString::number(i);
+    }
+
+    // Display potential puzzle Day
+    for (j = 1; j < XMAS_DAY; j++) {
+        m_day_list << QString::number(j);
+    }
 }

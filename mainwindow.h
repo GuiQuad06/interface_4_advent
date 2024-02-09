@@ -23,6 +23,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void init_date_map();
+
 private slots:
     void clear_fct();
     void process_fct();
@@ -40,6 +42,9 @@ private:
 
     QWidget* m_mainWidget;
     QTextEdit* m_input_data;
+    QComboBox* m_year;
+    QComboBox* m_day;
+    QLabel* m_result;
 
     QDate m_date;
 
