@@ -16,6 +16,7 @@
 #include <QString>
 #include <QFont>
 #include <QMap>
+#include <QMessageBox>
 
 #define START_YEAR    2015    // First year of Advent of Code
 #define XMAS_DAY        25

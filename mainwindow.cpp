@@ -99,12 +99,21 @@ void MainWindow::clear_fct()
 
 void MainWindow::process_fct()
 {
-    QString res, input;
+    QString res, input, msg;
+    QMessageBox msgBox;
     int status;
 
     input = m_input_data->toPlainText();
 
-    status = m_puzzleMap[{m_year->currentText().toInt(), m_day->currentText().toInt()}](res, input);
+    try {
+        status = m_puzzleMap[{m_year->currentText().toInt(), m_day->currentText().toInt()}](res, input);
+    }
+    catch (const std::bad_function_call& e) {
+        msg = e.what();
+        msg += "\n\nYou must implement the choosen Puzzle Engine !";
+        msgBox.setText(msg);
+        msgBox.exec();
+    }
 
     if(!status) {
         // If return OK, display the result on the text field
