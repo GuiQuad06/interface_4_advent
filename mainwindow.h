@@ -17,6 +17,7 @@
 #include <QFont>
 #include <QMap>
 #include <QMessageBox>
+#include <QElapsedTimer>
 
 #define START_YEAR    2015    // First year of Advent of Code
 #define XMAS_DAY        25
@@ -53,6 +54,7 @@ private:
     QComboBox* m_year;
     QComboBox* m_day;
     QLabel* m_result;
+    QLabel* m_time_result;
 
     QDate m_date;
 

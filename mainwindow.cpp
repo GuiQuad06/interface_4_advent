@@ -29,13 +29,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     QLabel *input_data_label = new QLabel(QString("Enter the input data:"), m_mainWidget);
     QLabel *result_label = new QLabel(QString("Here the result:"), m_mainWidget);
+    QLabel *timer_label = new QLabel(QString("It tooks (in sec):"), m_mainWidget);
     QLabel *year_label = new QLabel(QString("Select the year:"), m_mainWidget);
     QLabel *day_label = new QLabel(QString("Select the day:"), m_mainWidget);
     m_result = new QLabel(QString(""), m_mainWidget);
+    m_time_result = new QLabel(QString(""), m_mainWidget);
 
     // Set a Black Border on the result QLabel to distinguish it when empty
     m_result->setFrameShape(QFrame::Shape::Box);
     m_result->setLineWidth(1);
+    m_time_result->setFrameShape(QFrame::Shape::Box);
+    m_time_result->setLineWidth(1);
 
     // Button declaration
     QPushButton *clear_btn = new QPushButton(QString("Clear"), m_mainWidget);
@@ -65,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_vLayout_right->addWidget(m_day);
     m_vLayout_right->addWidget(result_label);
     m_vLayout_right->addWidget(m_result);
+    m_vLayout_right->addWidget(timer_label);
+    m_vLayout_right->addWidget(m_time_result);
     m_vLayout_right->addWidget(submit_btn);
 
     // Main HLayout organization
@@ -95,18 +101,26 @@ void MainWindow::clear_fct()
 {
     m_input_data->clear();
     m_result->clear();
+    m_time_result->clear();
 }
 
 void MainWindow::process_fct()
 {
+    int status;
     QString res, input, msg;
     QMessageBox msgBox;
-    int status;
+
+    QElapsedTimer timer;
+    auto elapsedMilliseconds = 0;
 
     input = m_input_data->toPlainText();
 
     try {
+        // Start timer
+        timer.start();
         status = m_puzzleMap[{m_year->currentText().toInt(), m_day->currentText().toInt()}](res, input);
+        // Stop timer
+        elapsedMilliseconds = timer.elapsed();
     }
     catch (const std::bad_function_call& e) {
         msg = e.what();
@@ -118,6 +132,7 @@ void MainWindow::process_fct()
     if(!status) {
         // If return OK, display the result on the text field
         m_result->setText(res);
+        m_time_result->setText(QString::number(elapsedMilliseconds * 0.001));
     }
 }
 
