@@ -147,7 +147,7 @@ void MainWindow::init_date_map()
     m_date = QDate::currentDate();
 
     // Display potential puzzle Year
-    for (i = START_YEAR ; i < m_date.year(); i++) {
+    for (i = START_YEAR ; i <= m_date.year(); i++) {
         m_year_list << QString::number(i);
     }
 
@@ -157,7 +157,7 @@ void MainWindow::init_date_map()
     }
 
     // Init Map
-    for (i = START_YEAR ; i < m_date.year(); i++) {
+    for (i = START_YEAR ; i <= m_date.year(); i++) {
         for (j = 1; j < XMAS_DAY; j++) {
             // Initialiize the unimplemented callback puzzles
             m_puzzleMap[{i, j}] = Q_NULLPTR;
